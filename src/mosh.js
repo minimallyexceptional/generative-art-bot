@@ -2,7 +2,10 @@ const fs = require('fs');
 const { dialog } = require('electron').remote
 
 const app = document.querySelector('.app');
-const cacheImagePath = 'https://source.unsplash.com/random/1920x1050';
+let width = 1920;
+let height = 1050;
+
+const cacheImagePath = `https://source.unsplash.com/random/${width}x${height}`;
 
 // let file = dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] });
 // let fileData = fs.readFileSync(file[0]);
@@ -19,9 +22,12 @@ image.style.height = '100vh';
 app.appendChild(image);
 
 var options = {
+    width,
+    height,
     image: '#targetImage',
+    app: '.app',
     color: false,
-    blendingMode: 'lighten',
+    blendingMode: 'mutiply',
     renderPasses: 0,
     invert: false,
     lineWidth: 1,
@@ -30,13 +36,14 @@ var options = {
     renderSize: 'original',
     workers: 70,
     speed: 25,
-    turningAngle: 100
+    turningAngle: 100,
+    backgroundColor: 'whitesmoke'
 };
 
 let renderer = new Renderer(options);
 
-renderer.start();
+console.log(window);
 
-setInterval(() => {
-    location.reload();
+setTimeout(() => {
+    renderer.save();
 }, 60000 * 5);
