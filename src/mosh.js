@@ -34,7 +34,7 @@ var options = {
     lineType: 'point',
     origin: ['top'],
     renderSize: 'original',
-    workers: 70,
+    workers: 120,
     speed: 25,
     turningAngle: 100,
     backgroundColor: 'whitesmoke'

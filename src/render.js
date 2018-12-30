@@ -61,7 +61,7 @@ class Renderer {
         this.chromata.start();
         setTimeout(() => {
             this.start();
-        }, 1500 );
+        }, 2000 );
     }
 
     start () {
