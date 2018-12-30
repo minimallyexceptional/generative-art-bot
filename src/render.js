@@ -56,21 +56,11 @@ class Renderer {
         this.node.style.display = 'none';
         this.options = this.mapOptions();
 
-        this. chromata = new Chromata(this.node, this.options);
-
-        this.chromata.start();
-        setTimeout(() => {
-            this.start();
-        }, 2000 );
+        this.chromata = new Chromata(this.node, this.options);
     }
 
     start () {
-        // this.node.style.display = 'block';
-        const canvas = document.querySelector(`${this.app} canvas`);
-        const ctx = canvas.getContext('2d');
-
-        ctx.fillStyle = this.backgroundColor;
-        ctx.fillRect(0,0, this.width, this.height);
+        this.chromata.start();
     }
 
     pause () {
