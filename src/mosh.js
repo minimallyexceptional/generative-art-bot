@@ -1,18 +1,19 @@
-const fs = require('fs');
-const _ = require('lodash');
-const { dialog } = require('electron').remote
+import _ from 'lodash';
+import Renderer from './render.js';
 
 const app = document.querySelector('.app');
-let width = 1920;
-let height = 1050;
+let width = window.innerWidth;
+let height = window.innerHeight;
 
 function randomValue(min, max) {
-    return Math.floor(Math.random() * max) + min
+    return Math.round(Math.floor(Math.random() * max) + min)
 }
  
 const cacheImagePath = `https://source.unsplash.com/random/${randomValue(width/4, width)}x${randomValue(height/2, height)}`;
 
 let image = document.createElement('img');
+image.crossOrigin = "Anonymous";
+image.setAttribute('crossOrigin', '');
 image.id = 'targetImage'
 image.src = cacheImagePath;
 image.style.display = 'none';
@@ -37,7 +38,7 @@ var options = {
     origin: ['top'],
     renderSize: 'original',
     workers: randomValue(1, 1000),
-    speed: randomValue(1, 5000),
+    speed: randomValue(1, 10000),
     turningAngle: randomValue(1, 1000),
     backgroundColor: 'whitesmoke'
 };

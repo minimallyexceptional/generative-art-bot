@@ -1,8 +1,7 @@
-const axios = require('axios');
-const request = require("request");
+import axios from "axios";
 const uuid = require('uuid');
 
-class Renderer {
+export default class Renderer {
     constructor(options) {
         this.options = null;
         this.width = options.width;
@@ -24,17 +23,17 @@ class Renderer {
         this.init();
     }
 
-    findColorMode (bool) {
+    findColorMode(bool) {
         if (bool) { return 'color' }
         else { return 'greyscale' }
     }
 
-    findInversionMode (bool) {
+    findInversionMode(bool) {
         if (bool) { return 'low' }
         else { return 'high' }
     }
 
-    mapOptions () {
+    mapOptions() {
         return {
             colorMode: this.findColorMode(this.colorMode),
             compositeOperation: this.compositeOperation,
@@ -51,7 +50,7 @@ class Renderer {
         }
     }
 
-    init () {
+    init() {
         this.node = document.querySelector(this.image);
         this.node.style.display = 'none';
         this.options = this.mapOptions();
@@ -59,88 +58,58 @@ class Renderer {
         this.chromata = new Chromata(this.node, this.options);
     }
 
-    start () {
+    start() {
         this.chromata.start();
     }
 
-    pause () {
+    pause() {
         this.chromata.toggle();
     }
 
-    stop () {
+    stop() {
         this.chromata.stop();
     }
 
-    reset () {
+    reset() {
         this.chromata.reset();
     }
 
-    save () {
+    save() {
         const canvas = document.querySelector(`${this.app} canvas`);
 
         let data = canvas.toDataURL('image/jpeg');
         let that = this;
 
-        this.auth()
-        .then((res, err) => {
-            if (res) {
-                that.authToken = res.data.access_token;
-            }
-        })
-        .then(() => {
-            console.log('ACESS TOKEN ', this.authToken);
-            this.upload(data, this.authToken, this.client_id);
-        });
+        this.upload(data, this.authToken, this.client_id);
     }
 
-    auth () {
-        this.token_url = 'https://api.imgur.com/oauth2/token';
-        this.client_id = '1225fd4beff5acd';
-        this.client_secret = 'd12a7cef58336728cfb69b6dd7bb5c7835b3a7d4';
-        this.refresh_token = '59191e3710274b5615695fdd429f01c9b4c2ee9b';
-        this.grant_type = 'refresh_token';
-
-
-
-        return axios.post(this.token_url, {
-                refresh_token: this.refresh_token,
-                client_id: this.client_id,
-                client_secret: this.client_secret,
-                grant_type: this.grant_type
-        });
-        
-    }
-
-    upload (imageData, authToken, clientId) {
-        let album  = '9FN8Qgk'
+    upload(imageData) {
+        let album = '9FN8Qgk'
         let url = `https://api.imgur.com/3/image`
-        let data = imageData.split(',')[1].toString();
+        let imgData = imageData.split(',')[1].toString();
 
-        var jar = request.jar();
-        jar.setCookie(request.cookie("IMGURSESSION=dead091ec35fed4edfa2326c5bee9aae"), "https://api.imgur.com/3/image");
-        jar.setCookie(request.cookie("_nc=1"), "https://api.imgur.com/3/image");
-        
-        var options = { method: 'POST',
-          url: 'https://api.imgur.com/3/image',
-          headers:
-           { authorization: 'Bearer 80c1a619c04989325987cd94d31ecb48b4dbf1e3',
-             'content-type': 'multipart/form-data; boundary=---011000010111000001101001' },
-          formData:
-           { image: data,
-             album: '9FN8Qgk',
-             type: 'base64',
-             name: uuid.v4(),
-             title: '',
-             description: '' },
-          jar: 'JAR' };
-        
-        request(options, function (error, response, body) {
-          if (error) throw new Error(error);
-        
-          console.log(body);
-          location.reload();
+        var data = new FormData();
+        data.append("image", imgData)
+        data.append("album", album);
+        data.append("type", "base64");
+        data.append("name", uuid.v4());
+        data.append("title", uuid.v4());
+        data.append("description", uuid.v4());
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === this.DONE) {
+                console.log(this.responseText);
+            }
         });
-        
 
+        xhr.open("POST", url);
+        xhr.setRequestHeader("authorization", "Bearer 80c1a619c04989325987cd94d31ecb48b4dbf1e3");
+
+        xhr.send(data);
+
+        location.reload();
     }
 }
