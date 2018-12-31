@@ -9,7 +9,7 @@ function randomValue(min, max) {
     return Math.round(Math.floor(Math.random() * max) + min)
 }
  
-const cacheImagePath = `https://source.unsplash.com/random/${randomValue(width/4, width)}x${randomValue(height/2, height)}`;
+const cacheImagePath = `https://source.unsplash.com/random/`;
 
 let image = document.createElement('img');
 image.crossOrigin = "Anonymous";
