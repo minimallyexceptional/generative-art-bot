@@ -110,6 +110,8 @@ export default class Renderer {
 
         xhr.send(data);
 
-        location.reload();
+        setTimeout(() => {
+            location.reload();
+        }, 3000)
     }
 }
