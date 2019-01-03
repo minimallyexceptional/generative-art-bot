@@ -29,16 +29,16 @@ var options = {
     height,
     image: '#targetImage',
     app: '.app',
-    color: _.sample([true, false]),
+    color: false,
     blendingMode: 'lighten',
     renderPasses: 0,
     invert: _.sample([true, false]),
     lineWidth: randomValue(0.1, 3),
-    lineType: 'square',
+    lineType: _.sample(['square', 'point', 'smooth']),
     origin: ['top'],
     renderSize: 'original',
     workers: randomValue(1, 500),
-    speed: randomValue(0, 500),
+    speed: randomValue(1, 20),
     turningAngle: randomValue(1, 180),
     backgroundColor: 'black'
 };
@@ -46,7 +46,7 @@ var options = {
 let renderer = new Renderer(options);
 
 renderer.start();
-
+ 
 setTimeout(() => {
     renderer.save();
 }, randomValue(60000 / 50, 60000 * 1));
