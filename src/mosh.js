@@ -30,17 +30,17 @@ var options = {
     image: '#targetImage',
     app: '.app',
     color: _.sample([true, false]),
-    blendingMode: 'multiply',
+    blendingMode: 'lighten',
     renderPasses: 0,
     invert: _.sample([true, false]),
     lineWidth: randomValue(0.1, 3),
     lineType: 'square',
     origin: ['top'],
     renderSize: 'original',
-    workers: randomValue(1, 1000),
-    speed: randomValue(1, 10000),
-    turningAngle: randomValue(1, 1000),
-    backgroundColor: 'whitesmoke'
+    workers: randomValue(1, 500),
+    speed: randomValue(0, 500),
+    turningAngle: randomValue(1, 180),
+    backgroundColor: 'black'
 };
 
 let renderer = new Renderer(options);
