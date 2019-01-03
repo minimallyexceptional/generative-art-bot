@@ -34,7 +34,7 @@ var options = {
     renderPasses: 0,
     invert: _.sample([true, false]),
     lineWidth: randomValue(1, 6),
-    lineType: 'point',
+    lineType: 'square',
     origin: ['top'],
     renderSize: 'original',
     workers: randomValue(1, 1000),
