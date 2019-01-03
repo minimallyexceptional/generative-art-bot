@@ -49,4 +49,4 @@ renderer.start();
  
 setTimeout(() => {
     renderer.save();
-}, randomValue(60000 / 50, 60000 * 1));
+}, randomValue(60000 / 20, 60000 * 1));
