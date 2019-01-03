@@ -33,7 +33,7 @@ var options = {
     blendingMode: 'multiply',
     renderPasses: 0,
     invert: _.sample([true, false]),
-    lineWidth: randomValue(1, 6),
+    lineWidth: randomValue(0.1, 3),
     lineType: 'square',
     origin: ['top'],
     renderSize: 'original',
