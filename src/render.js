@@ -20,7 +20,6 @@ export default class Renderer {
         this.speed = options.speed;
         this.turningAngle = options.turningAngle;
         this.backgroundColor = options.backgroundColor;
-        this.init();
     }
 
     findColorMode(bool) {
@@ -33,21 +32,25 @@ export default class Renderer {
         else { return 'high' }
     }
 
-    mapOptions() {
-        return {
-            colorMode: this.findColorMode(this.colorMode),
-            compositeOperation: this.compositeOperation,
-            iterationLimit: this.iterationLimit,
-            key: this.findInversionMode(this.key),
-            lineWidth: this.lineWidth,
-            lineMode: this.lineMode,
-            origin: this.origin,
-            outputSize: this.outputSize,
-            pathFinderCount: this.pathFinderCount,
-            speed: this.speed,
-            turningAngle: this.turningAngle,
-            backgroundColor: this.backgroundColor
+    mapOptions(options) {
+        if (options) {
+            return {
+                colorMode: this.findColorMode(this.colorMode),
+                compositeOperation: this.compositeOperation,
+                iterationLimit: this.iterationLimit,
+                key: this.findInversionMode(this.key),
+                lineWidth: this.lineWidth,
+                lineMode: this.lineMode,
+                origin: this.origin,
+                outputSize: this.outputSize,
+                pathFinderCount: this.pathFinderCount,
+                speed: this.speed,
+                turningAngle: this.turningAngle,
+                backgroundColor: this.backgroundColor
+            };
         }
+
+        return {};
     }
 
     init() {

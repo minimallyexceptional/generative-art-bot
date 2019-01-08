@@ -43,7 +43,7 @@ var options = {
     backgroundColor: 'black'
 };
 
-let renderer = new Renderer(options);
+let renderer = new Renderer(options).init();
 
 renderer.start();
  
